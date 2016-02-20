@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "angular": "^1.5.0",
-    "Bootflat": "^2.0.4"
+    "Bootflat": "^2.0.4",
+    "angular-route": "^1.5.0"
   }
 }
