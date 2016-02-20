@@ -1,0 +1,24 @@
+{
+  "name": "hacksummit forecast angular ui",
+  "homepage": "https://github.com/nyluntu/hacksummit-forecast",
+  "description": "Nothing important.",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "nyluntu",
+    "ernanirst"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "Bootflat": "^2.0.4"
+  }
+}
