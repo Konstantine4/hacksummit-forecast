@@ -14,19 +14,24 @@
         vm.conditions = [];
         vm.periods = [];
         vm.actions = [];
+        vm.locations = [];
         vm.selectedConfigs = {};
         vm.conditionMessage = "";
         vm.actionMessage = "";
         vm.periodMessage = "";
+        vm.locationMessage = "";
         vm.periodInputValue = null;
+        vm.locationInputValue = null;
         
         // methods
         vm.submitConfiguration = submitConfiguration;
         vm.selectPeriod = selectPeriod;
         vm.selectCondition = selectCondition;
         vm.selectAction = selectAction;
+        vm.selectLocation = selectLocation;
         vm.isSelected = isSelected;
         vm.updatePeriodItemValue = updatePeriodItemValue;
+        vm.updateLocationItemValue = updateLocationItemValue;
         
         // calling init
         init();
@@ -35,9 +40,11 @@
             vm.conditions = getConditions();
             vm.periods = getPeriods();
             vm.actions = getActions();
+            vm.locations = getLocations();
             selectCondition(1);
             selectAction(1);
             selectPeriod(1);
+            selectLocation(1);
         }
 
         function isSelected(key, id) {
@@ -83,6 +90,23 @@
         function changeActionMessage(item) {
             vm.actionMessage = item.message + " " + item.title;
         }
+        
+        // LOCATIONS
+        function selectLocation(id) {
+            var item = vm.locations.filter(function (x) { return x.id == id })[0];
+            vm.selectedConfigs["location"] = item;
+            vm.locationInputValue = item.value;
+            changeLocationMessage(item);
+        }
+        
+        function changeLocationMessage(item) {
+            vm.locationMessage = item.message + " " + item.value;
+        }
+        
+        function updateLocationItemValue() {
+            vm.selectedConfigs["location"].value = vm.locationInputValue;
+            changeLocationMessage(vm.selectedConfigs["location"]);
+        }
 
         function submitConfiguration() {
             var data = {
@@ -125,6 +149,13 @@
         function getPeriods() {
             var array = [];
             array.push({ id: 1, unit: "HOURS", value: 1 });
+
+            return array;
+        }
+        
+         function getLocations() {
+            var array = [];
+            array.push({ id: 1, message: "IN", title: "NAME OF CITY", value: "NAME", icon: "fa fa-building-o" });
 
             return array;
         }
