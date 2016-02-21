@@ -38,6 +38,7 @@ var getAllDocuments = function(db, callback){
       assert.equal(err, null);
       if (doc !== null) {
         //console.log(doc);
+        
         //add to array
         configs.push(doc);
       } else {

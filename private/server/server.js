@@ -15,18 +15,23 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get(apiBaseUrl, function (req, res) {
-  res.send('Hello World!');
+/* Get all products from database ********/
+app.get(apiBaseUrl + 'getAllProducts/', function (req, res) {
+    var returnProducts = function(arr){
+        res.send(JSON.stringify(arr));
+    }
+    db_handler.getProducts(res);
+
 });
 
+/* Insert new user config on database ********/
 app.post(apiBaseUrl + 'newConfig/', function (req, res) {
-    
   res.send('POST Body: ' +  JSON.stringify(req.body));
   db_handler.insertConfig(req.body);
-    
-    
 });
 
+
+/* Console print *****************************/
 app.listen(port, function () {
   console.log('Example app listening on ' + port);
 });
