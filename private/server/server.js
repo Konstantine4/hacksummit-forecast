@@ -29,6 +29,7 @@ app.post(apiBaseUrl + 'updatePrice/', function (req, res) {
             default:
                 console.log("Unkown notification");
         }
+        res.status(200).send("ok");
     }
     
     console.log('Receive post: ' +  JSON.stringify(req.body));
@@ -38,6 +39,17 @@ app.post(apiBaseUrl + 'updatePrice/', function (req, res) {
 /* Get all products from database ********/
 app.get(apiBaseUrl + 'getAllProducts/', function (req, res) {
     var returnProducts = function(products){
+        var oldTime =  1*60;
+        var current_time = Math.floor(Date.now() / 1000);
+        for(var i = 0;i < products.length;i++){
+            console.log("join my loop nigga: " + current_time);
+            //check if time is old
+            if(products[i].lastPriceUpdate < (current_time - oldTime)){
+                console.log("Price changed")
+                products[i].price = products[i].basePrice;
+            }
+        }
+        
         res.send(JSON.stringify(products));
     }
     db_handler.getProducts(returnProducts);
@@ -47,6 +59,7 @@ app.get(apiBaseUrl + 'getAllProducts/', function (req, res) {
 app.post(apiBaseUrl + 'newConfig/', function (req, res) {
   res.send('POST Body: ' +  JSON.stringify(req.body));
   db_handler.insertConfig(req.body);
+  res.status(200).send("ok");
 });
 
 

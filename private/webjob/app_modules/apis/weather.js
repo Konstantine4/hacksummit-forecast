@@ -34,7 +34,9 @@ var treatForecast = function(body, config, callback){
                     notification.endpoints = config.endpoints;
                     notification.triggerCondition = config.weatherCondition[j];
                     notification.conditionGroup = body.hourly.data[i].summary;
-                    notification.message = "It is going to " + config.weatherCondition[j] + " in the next " + 
+                    notification.weatherCondition = config.weatherCondition[j];
+                    notification.predictionTime = config.predictionTime;
+                    notification.description = "It is going to " + config.weatherCondition[j] + " in the next " + 
                         (config.predictionTime/3600) + " hours";
                     notificationObject[config.userId+';'+config.weatherCondition[j]] = notification;
                     
