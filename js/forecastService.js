@@ -16,12 +16,9 @@
         };
         return service;
 
-        ////////////
-
         function submitConfigs(data) {
             var url = baseUrl + "/newConfig";
             return $http.post(url, data);
         };
     }
-
 })();
