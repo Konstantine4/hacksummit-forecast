@@ -10,7 +10,7 @@ var treatForecast = function(body, config, callback){
         This for loop goes over each of the predictions available on the API 
         to see if any of the users notification should be sent
     */
-    console.log("Start checkin: " + body.list.length);
+    //console.log("Start checkin: " + body.list.length);
     for(var i = 0;i < body.list.length && !found;i++){
         /*
             If the target timestamp is higher than the prediction time, then the program shouldn't check any more 
@@ -69,7 +69,8 @@ var treatForecast = function(body, config, callback){
 var getForecast = function (config, callback) {
     var current_ts = Math.floor(Date.now() / 1000);
     if(config.predictionTime > 0 && config.predictionTime < 432000){
-        console.log(urlForLocation + '&lat=' + config.lat + '&lon=' + config.lon);
+        //console.log(urlForLocation + '&lat=' + config.lat + '&lon=' + config.lon);
+        //console.log("datetime2 " + (new Date()));
         json_handler.getJSONHttp(urlForLocation + '&lat=' + config.lat + '&lon=' + config.lon, function(json) {
             treatForecast(json, config, callback);
         });
