@@ -59,7 +59,7 @@ app.get(apiBaseUrl + 'getAllProducts/', function (req, res) {
 app.post(apiBaseUrl + 'newConfig/', function (req, res) {
   res.send('POST Body: ' +  JSON.stringify(req.body));
   db_handler.insertConfig(req.body);
-  res.status(200).send("ok");
+  //res.status(200).send("ok");
 });
 
 
