@@ -14,11 +14,12 @@ function sleep(milliseconds) {
 function sendNotifications(notificationObject){
     //console.log(JSON.stringify(notificationObject));
     //console.log("Jojo");
+    var notification = null;
     Object.keys(notificationObject).forEach(function(key,index) {
-    // key: the name of the object key
-    // index: the ordinal position of the key within the object 
         for(var i = 0;i < notificationObject[key].endpoints.length;i++){
-            //json_handler.postJSONHttp(notificationObject[key].endpoints[i],JSON.stringify(notificationObject[key]));
+            notification = JSON.parse(JSON.stringify(notificationObject[key]));
+            delete notification.endpoints; 
+            json_handler.postJSONHttp(notificationObject[key].endpoints[i],JSON.stringify(notification));
         }
     });
 }
@@ -41,20 +42,10 @@ function run(configs){
     for(var i = 0;i < configs.length;i++){
         
         //print date
-        console.log("datetime " + i + ":" + (new Date()));
+        //console.log("datetime " + i + ":" + (new Date()));
         
         //resquest data
         getData(configs,i);
-        
-        //wait
-        var start = new Date().getTime();
-        for (var j = 0; j < 1e7; j++) {
-            if ((new Date().getTime() - start) > 10000){
-                break;
-            }
-        }
-        
-        
         
     }
 }
