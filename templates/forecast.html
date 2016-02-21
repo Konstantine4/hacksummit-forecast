@@ -12,14 +12,15 @@
                 </div>
             </div>
         </div>
-        
+
         <h1>{{vm.locationMessage}}</h1>
         <div class="row row-centered">
             <div ng-repeat="item in vm.locations" class="col-xs-12 col-sm-12 col-md-2 col-centered" ng-click="vm.selectLocation(item.id)">
                 <div class="thumbnail" ng-class="{ activeCondition: vm.isSelected('location', item.id)}">
                     <div class="form-group form-group-lg">
                         <div class="col-lg-12">
-                            <input ng-model="vm.locationInputValue" ng-change="vm.updateLocationItemValue()"  class="form-control input-lg text-center" type="text" value="{{item.value}}">
+                            <input ng-model="vm.locationInputValue" ng-change="vm.updateLocationItemValue()" class="form-control input-lg text-center"
+                            type="text" placeholder="{{item.value}}">
                         </div>
                     </div>
                     <div class="caption">
@@ -35,7 +36,8 @@
                 <div class="thumbnail" ng-class="{ activeCondition: vm.isSelected('period', item.id)}">
                     <div class="form-group form-group-lg">
                         <div class="col-lg-12">
-                            <input ng-model="vm.periodInputValue" ng-change="vm.updatePeriodItemValue()"  class="form-control input-lg text-center" type="number" value="{{item.value}}">
+                            <input ng-model="vm.periodInputValue" ng-change="vm.updatePeriodItemValue()" class="form-control input-lg text-center" type="number"
+                            value="{{item.value}}">
                         </div>
                     </div>
                     <div class="caption text-center">
@@ -52,11 +54,12 @@
                     <i class="{{item.icon}}"></i>
                     <div class="caption text-center">
                         <h3>{{item.title}}</h3>
+
                     </div>
-                    <div ng-show="vm.hasInputs(item)" class="form-group form-group-lg">
-                        <div ng-repeat="input in item.inputs" class="col-lg-12">
-                            <input ng-model="input.callback" class="form-control input-lg text-center" type="test" value="type endpoint here">
-                        </div>
+                </div>
+                <div ng-show="vm.showInputs(item)" class="form-group form-group-lg">
+                    <div ng-repeat="input in item.inputs" class="col-lg-12">
+                        <input ng-model="input.value" class="form-control input-lg text-center" type="text" placeholder="{{input.placeholder}}">
                     </div>
                 </div>
             </div>

@@ -33,6 +33,7 @@
         vm.updatePeriodItemValue = updatePeriodItemValue;
         vm.updateLocationItemValue = updateLocationItemValue;
         vm.hasInputs = hasInputs;
+        vm.showInputs = showInputs;
         
         // calling init
         init();
@@ -43,9 +44,17 @@
             vm.actions = getActions();
             vm.locations = getLocations();
             selectCondition(1);
-            selectAction(1);
             selectPeriod(1);
             selectLocation(1);
+            initAction();
+            // selectAction(1);
+        }
+        
+        function showInputs(item) {
+            if(isSelected('action', item.id) && hasInputs(item)) {
+                return true;
+            }
+            return false;
         }
         
         function hasInputs(item) {
@@ -56,6 +65,9 @@
         }
 
         function isSelected(key, id) {
+            if(vm.selectedConfigs[key] == null) {
+                return false;
+            }
             return vm.selectedConfigs[key].id === id;
         }
 
@@ -64,7 +76,6 @@
             var item = vm.conditions.filter(function (x) { return x.id == id })[0];
             vm.selectedConfigs["condition"] = item;
             changeConditionMessage(item.message)
-
         }
 
         function changeConditionMessage(message) {
@@ -93,6 +104,11 @@
             var item = vm.actions.filter(function (x) { return x.id == id })[0];
             vm.selectedConfigs["action"] = item;
             changeActionMessage(item);
+        }
+        
+        function initAction() {
+            vm.selectedConfigs["action"] = { id: 0, type: "default", title: "", message: "SELECT ACTION" };
+            changeActionMessage(vm.selectedConfigs["action"]);
         }
 
         function changeActionMessage(item) {
@@ -187,8 +203,8 @@
 
         function getActions() {
             var array = [];
-            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [ { callback: "" }] });
-            array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [ { type: "callbackUrl", value: "", placeholder: "type callback url" }] });
+            // array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
 
             return array;
         }
