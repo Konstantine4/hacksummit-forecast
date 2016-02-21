@@ -23,6 +23,8 @@ This project contains a configuration interface to setup weather forecast based 
 * When the store is notified, the products prices decrease based on pre-defined values.
 * If the store is not notified or the last notification was more than 05 minutes ago, prices go back to normal.
 
+* The demo store also provides a log, that shows when it received a notification and changed the prices
+
 ## use cases / examples
 
 As a sales manager
