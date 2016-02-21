@@ -5,9 +5,9 @@
         .module("forecastApp")
         .controller("ForecastController", ForecastController);
 
-    ForecastController.$inject = ["$http", "ForecastService"];
+    ForecastController.$inject = ["$scope","$http", "ForecastService", "Notification"];
 
-    function ForecastController($http, forecastService) {
+    function ForecastController($scope, $http, forecastService, Notification) {
         
         // variables
         var vm = this;
@@ -22,6 +22,27 @@
         vm.locationMessage = "";
         vm.periodInputValue = null;
         vm.locationInputValue = null;
+        vm.disableButton = false;
+        vm.map = { center: { latitude: 45, longitude: -73 }, zoom: 8, markers: [] };
+        
+
+        vm.events = {
+            click: function (map, eventName, originalEventArgs) {
+                var e = originalEventArgs[0];
+                var lat = e.latLng.lat(), lon = e.latLng.lng();
+                var marker = {
+                    id: Date.now(),
+                    coords: {
+                        latitude: lat,
+                        longitude: lon
+                    }
+                };
+                vm.map.markers = [];
+                vm.map.markers.push(marker);
+                console.log(vm.map.markers);
+                $scope.$apply();
+            }
+        }
         
         // methods
         vm.submitConfiguration = submitConfiguration;
@@ -34,6 +55,7 @@
         vm.updateLocationItemValue = updateLocationItemValue;
         vm.hasInputs = hasInputs;
         vm.showInputs = showInputs;
+        
         
         // calling init
         init();
@@ -49,14 +71,14 @@
             initAction();
             // selectAction(1);
         }
-        
+
         function showInputs(item) {
-            if(isSelected('action', item.id) && hasInputs(item)) {
+            if (isSelected('action', item.id) && hasInputs(item)) {
                 return true;
             }
             return false;
         }
-        
+
         function hasInputs(item) {
             if ('inputs' in item && item.inputs.length > 0) {
                 return true;
@@ -65,7 +87,7 @@
         }
 
         function isSelected(key, id) {
-            if(vm.selectedConfigs[key] == null) {
+            if (vm.selectedConfigs[key] == null) {
                 return false;
             }
             return vm.selectedConfigs[key].id === id;
@@ -105,7 +127,7 @@
             vm.selectedConfigs["action"] = item;
             changeActionMessage(item);
         }
-        
+
         function initAction() {
             vm.selectedConfigs["action"] = { id: 0, type: "default", title: "", message: "SELECT ACTION" };
             changeActionMessage(vm.selectedConfigs["action"]);
@@ -134,15 +156,19 @@
 
         function submitConfiguration() {
             // var data = createConfigurationMessage(vm.selectedConfigs);
+            vm.disableButton = true;
             var data = createErnanirstConfigs(vm.selectedConfigs);
-            
+
             forecastService
                 .submitConfigs(data)
                 .success(function (response) {
-                    // alert(response);
+                    // Success
+                    Notification.success({ message: "Thank you! We will notify you when something happens.", title: "Success" });
                 })
                 .error(function (err) {
-                    console.log(err);
+                    // Error
+                    Notification.error({ message: "Error occured. Don't worry. We will take care of it.", title: "Error" });
+                    vm.disableButton = false;
                 });
         }
 
@@ -174,17 +200,20 @@
         }
 
         function createErnanirstConfigs(selections) {
+            
+            var coordinates =  vm.map.markers[0].coords;
+            
             var config = {
-                    userId: "1c9de5bb-f3fe-4930-8602-cc766c32c1b6",
-                    config: "forecast",
-                    endpoints: [
-                        "http://requestb.in/1cxlztd1"
-                    ],
+                userId: "1c9de5bb-f3fe-4930-8602-cc766c32c1b6",
+                config: "forecast",
+                endpoints: [
+                    "http://requestb.in/1cxlztd1"
+                ],
                 weatherCondition: [
                     selections.condition.value
                 ],
-                lat: 60.985284,
-                lon: 24.421180,
+                lat: coordinates.latitude,
+                lon: coordinates.longitude,
                 notificationTime: "asap",
                 predictionTime: selections.period.value * 60 * 60
             }
@@ -203,7 +232,7 @@
 
         function getActions() {
             var array = [];
-            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [ { type: "callbackUrl", value: "", placeholder: "type callback url" }] });
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "type callback url" }] });
             // array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
 
             return array;

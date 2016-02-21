@@ -32,6 +32,9 @@
     color: #f5f5f5;
 }
 
+/* google map */
+.angular-google-map-container { height: 400px; }
+
 /* css loading spinner */
 .sk-folding-cube {
   margin: 20px auto;

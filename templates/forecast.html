@@ -29,6 +29,10 @@
                 </div>
             </div>
         </div>
+        
+        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' events="vm.events">
+            <ui-gmap-marker ng-repeat="m in vm.map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>
+        </ui-gmap-google-map>
 
         <h1>{{vm.periodMessage}}</h1>
         <div class="row row-centered">
@@ -66,7 +70,7 @@
         </div>
         <div class="row center-block text-center">
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary btn-block" ng-click="vm.submitConfiguration()">Submit</button>
+                <button type="button" class="btn btn-primary btn-block" ng-click="vm.submitConfiguration()" ng-disabled="vm.disableButton">Submit</button>
             </div>
         </div>
 

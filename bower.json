@@ -22,6 +22,8 @@
     "Bootflat": "^2.0.4",
     "angular-route": "^1.5.0",
     "weather-icons": "^2.0.10",
-    "SpinKit": "spinkit#^1.2.5"
+    "SpinKit": "spinkit#^1.2.5",
+    "angular-ui-notification": "^0.1.0",
+    "angular-google-maps": "^2.3.2"
   }
 }
