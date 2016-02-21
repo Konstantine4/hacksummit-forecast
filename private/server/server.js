@@ -15,13 +15,32 @@ app.use(function(req, res, next) {
   next();
 });
 
+/* Demo notification endpoint ********/
+app.post(apiBaseUrl + 'updatePrice/', function (req, res) {
+    var receive_notification = function(products){
+        console.log("Notification received: " + req.body.triggerCondition);
+        switch(req.body.triggerCondition){
+            case "snow":
+                //for loop changes all prices to basePrice - variation
+                for(var i = 0;i < products.length;i++){
+                    db_handler.decreaseProductPrice(products[i]);
+                }
+                break;
+            default:
+                console.log("Unkown notification");
+        }
+    }
+    
+    console.log('Receive post: ' +  JSON.stringify(req.body));
+    db_handler.getProducts(receive_notification);
+});
+
 /* Get all products from database ********/
 app.get(apiBaseUrl + 'getAllProducts/', function (req, res) {
-    var returnProducts = function(arr){
-        res.send(JSON.stringify(arr));
+    var returnProducts = function(products){
+        res.send(JSON.stringify(products));
     }
-    db_handler.getProducts(res);
-
+    db_handler.getProducts(returnProducts);
 });
 
 /* Insert new user config on database ********/
