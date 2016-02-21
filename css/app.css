@@ -22,3 +22,12 @@
     /* inline-block space fix */
     margin-right:-4px;
 }
+
+.activeCondition {
+    background-color: #37BC9B;
+    color: #f5f5f5;
+}
+
+.activeCondition h3 {
+    color: #f5f5f5;
+}
