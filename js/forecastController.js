@@ -207,7 +207,7 @@
                 userId: "1c9de5bb-f3fe-4930-8602-cc766c32c1b6",
                 config: "forecast",
                 endpoints: [
-                    "http://requestb.in/1cxlztd1"
+                    selections.action.inputs[0].value
                 ],
                 weatherCondition: [
                     selections.condition.value
@@ -233,7 +233,7 @@
         function getActions() {
             var array = [];
             array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "type callback url" }] });
-            // array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
+            array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope", inputs: [{ type: "emailAddress", value: "", placeholder: "type your email" }] });
 
             return array;
         }
