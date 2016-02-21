@@ -21,6 +21,7 @@
     "angular": "^1.5.0",
     "Bootflat": "^2.0.4",
     "angular-route": "^1.5.0",
-    "weather-icons": "^2.0.10"
+    "weather-icons": "^2.0.10",
+    "SpinKit": "spinkit#^1.2.5"
   }
 }

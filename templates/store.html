@@ -1,29 +1,33 @@
+<!-- Page Content -->
+<div class="container">
 
-    <!-- Page Content -->
-    <div class="container">
+    <div ng-show="vm.loading" class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+    </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
 
-                    <div ng-repeat="product in vm.products" class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img ng-src="{{product.picture}}" alt="{{product.title}}">
-                            <div class="caption">
-                                <h4 class="pull-right">{{product.price | currency: "EUR"}}</h4>
-                                <h4><a href="#">{{product.title}}</a>
+                <div ng-repeat="product in vm.products" class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <img ng-src="{{product.picture}}" alt="{{product.title}}">
+                        <div class="caption">
+                            <h4 class="pull-right">{{product.price | currency: "EUR"}}</h4>
+                            <h4><a href="#">{{product.title}}</a>
                                 </h4>
-                                <p>{{product.description}}</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">{{product.reviews}} reviews</p>
-                                <p>
-                                    <span ng-repeat="n in vm.range(product.stars)" class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
+                            <p>{{product.description}}</p>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">{{product.reviews}} reviews</p>
+                            <p>
+                                <span ng-repeat="n in vm.range(product.stars)" class="glyphicon glyphicon-star"></span>
+                            </p>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -31,5 +35,6 @@
         </div>
 
     </div>
-    <!-- /.container -->
 
+</div>
+<!-- /.container -->

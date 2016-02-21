@@ -12,6 +12,7 @@
         var vm = this;
         vm.products = [];
         vm.range = range;
+        vm.loading = true;
 
         init();
         function init() {
@@ -20,10 +21,12 @@
                 .success(function (response) {
                     response.forEach(function (element) {
                         vm.products.push(element);
+                        vm.loading = false;
                     }, this);
                 })
                 .error(function (err) {
                     console.log(err);
+                     vm.loading = false;
                 });
         }
 

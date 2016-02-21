@@ -136,14 +136,14 @@
             // var data = createConfigurationMessage(vm.selectedConfigs);
             var data = createErnanirstConfigs(vm.selectedConfigs);
             
-            // forecastService
-            //     .submitConfigs(data)
-            //     .success(function (response) {
-            //         // alert(response);
-            //     })
-            //     .error(function (err) {
-            //         console.log(err);
-            //     });
+            forecastService
+                .submitConfigs(data)
+                .success(function (response) {
+                    // alert(response);
+                })
+                .error(function (err) {
+                    console.log(err);
+                });
         }
 
         function createConfigurationMessage(selections) {
