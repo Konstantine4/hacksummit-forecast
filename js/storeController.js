@@ -5,9 +5,9 @@
         .module("forecastApp")
         .controller("StoreController", StoreController);
 
-    StoreController.$inject = ["$http"];
+    StoreController.$inject = ["$http", "StoreService"];
 
-    function StoreController($http) {
+    function StoreController($http, StoreService) {
 
         var vm = this;
         vm.products = [];
@@ -15,23 +15,16 @@
 
         init();
         function init() {
-            vm.products.push({
-                title: "Nerd's umbrella",
-                price: 19.90,
-                description: "When it is going to rain, this is the only choice.",
-                reviews: 9,
-                stars: 3,
-                picture: "./images/umbrella.jpg"
-            });
-            
-            vm.products.push({
-                title: "Tycoon tickets",
-                price: 34.45,
-                description: "Best event in town. Come to see the new rollercoaster.",
-                reviews: 23,
-                stars: 5,
-                picture: "./images/tickets.jpg"
-            });
+            StoreService
+                .getAllProducts()
+                .success(function (response) {
+                    response.forEach(function (element) {
+                        vm.products.push(element);
+                    }, this);
+                })
+                .error(function (err) {
+                    console.log(err);
+                });
         }
 
         function range(count) {

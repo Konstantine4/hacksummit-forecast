@@ -32,6 +32,7 @@
         vm.isSelected = isSelected;
         vm.updatePeriodItemValue = updatePeriodItemValue;
         vm.updateLocationItemValue = updateLocationItemValue;
+        vm.hasInputs = hasInputs;
         
         // calling init
         init();
@@ -45,6 +46,13 @@
             selectAction(1);
             selectPeriod(1);
             selectLocation(1);
+        }
+        
+        function hasInputs(item) {
+            if ('inputs' in item && item.inputs.length > 0) {
+                return true;
+            }
+            return false;
         }
 
         function isSelected(key, id) {
@@ -112,15 +120,14 @@
             // var data = createConfigurationMessage(vm.selectedConfigs);
             var data = createErnanirstConfigs(vm.selectedConfigs);
             
-            forecastService
-                .submitConfigs(data)
-                .success(function (response) {
-                    alert(response);
-                })
-                .error(function (err) {
-                    console.log(err);
-                });
-            console.log(data);
+            // forecastService
+            //     .submitConfigs(data)
+            //     .success(function (response) {
+            //         // alert(response);
+            //     })
+            //     .error(function (err) {
+            //         console.log(err);
+            //     });
         }
 
         function createConfigurationMessage(selections) {
@@ -180,7 +187,7 @@
 
         function getActions() {
             var array = [];
-            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud" });
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [ { callback: "" }] });
             array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
 
             return array;
