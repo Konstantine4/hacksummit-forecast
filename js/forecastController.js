@@ -98,64 +98,84 @@
             vm.locationInputValue = item.value;
             changeLocationMessage(item);
         }
-        
+
         function changeLocationMessage(item) {
             vm.locationMessage = item.message + " " + item.value;
         }
-        
+
         function updateLocationItemValue() {
             vm.selectedConfigs["location"].value = vm.locationInputValue;
             changeLocationMessage(vm.selectedConfigs["location"]);
         }
 
         function submitConfiguration() {
-            var data = {
-                "userId": "turouser2",
-                "config": "forecast",
-                "weatherCondition": "Snow",
-                "lat": 100,
-                "lon": 100,
-                "notificationTime": "asap",
-                "predictionTime": "9"
-            };
+            var data = createConfigurationMessage(vm.selectedConfigs);
 
-            forecastService
-                .submitConfigs(data)
-                .success(function (response) {
-                    alert(response);
-                })
-                .error(function (err) {
-                    console.log(err);
-                });
+            // forecastService
+            //     .submitConfigs(data)
+            //     .success(function (response) {
+            //         alert(response);
+            //     })
+            //     .error(function (err) {
+            //         console.log(err);
+            //     });
+            console.log(data);
+        }
+
+        function createConfigurationMessage(selections) {
+            var config = {};
+            config["location"] = {};
+            config.location = {
+                type: selections.location.type,
+                value: selections.location.value
+            }
+
+            config["action"] = {};
+            config.action = {
+                type: selections.action.type
+                // TODO: Add value
+            }
+
+            config["rules"] = [];
+
+            if (selections.condition.type === "weather") {
+                config.rules.push({ condition: "weather", title: selections.condition.title });
+            }
+
+            if (selections.period.type === "hours") {
+                config.rules.push({ condition: "inNextHours", hours: selections.period.value });
+            }
+            
+            return config;
         }
 
         function getConditions() {
             var array = [];
-            array.push({ id: 1, title: "RAIN", message: "IF IT'S GOING TO RAIN", icon: "wi wi-raindrops" });
-            array.push({ id: 2, title: "SUNNY", message: "IF IT'S GOING TO SUNNY", icon: "wi wi-day-sunny" });
-            array.push({ id: 3, title: "SNOW", message: "IF IT'S GOING TO SNOW", icon: "wi wi-snow" });
+            array.push({ id: 1, type: "weather", title: "RAIN", message: "IF IT'S GOING TO RAIN", icon: "wi wi-raindrops" });
+            array.push({ id: 2, type: "weather", title: "SUNNY", message: "IF IT'S GOING TO SUNNY", icon: "wi wi-day-sunny" });
+            array.push({ id: 3, type: "weather", title: "SNOW", message: "IF IT'S GOING TO SNOW", icon: "wi wi-snow" });
 
             return array;
         }
 
         function getActions() {
             var array = [];
-            array.push({ id: 1, title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud" });
-            array.push({ id: 2, title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud" });
+            array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope" });
 
             return array;
         }
 
         function getPeriods() {
             var array = [];
-            array.push({ id: 1, unit: "HOURS", value: 1 });
+            array.push({ id: 1, type: "hours", unit: "HOURS", value: 1 });
 
             return array;
         }
-        
-         function getLocations() {
+
+        function getLocations() {
             var array = [];
-            array.push({ id: 1, message: "IN", title: "NAME OF CITY", value: "NAME", icon: "fa fa-building-o" });
+            array.push({ id: 1, type: "city", message: "IN", title: "NAME OF CITY", value: "NAME", icon: "fa fa-building-o" });
 
             return array;
         }
