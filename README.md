@@ -1,4 +1,6 @@
-# fore.cast(), React to weather, we handle the hard part.
+# fore.cast()
+
+**React to weather, we handle the hard part.**
 
 Demo application for Hack.summit() virtual hackathon. 
 This project is only made for demo purposes.
