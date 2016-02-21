@@ -111,14 +111,14 @@
         function submitConfiguration() {
             var data = createConfigurationMessage(vm.selectedConfigs);
 
-            // forecastService
-            //     .submitConfigs(data)
-            //     .success(function (response) {
-            //         alert(response);
-            //     })
-            //     .error(function (err) {
-            //         console.log(err);
-            //     });
+            forecastService
+                .submitConfigs(data)
+                .success(function (response) {
+                    alert(response);
+                })
+                .error(function (err) {
+                    console.log(err);
+                });
             console.log(data);
         }
 
