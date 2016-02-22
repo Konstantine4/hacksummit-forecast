@@ -5,9 +5,9 @@
         .module("forecastApp")
         .controller("StoreController", StoreController);
 
-    StoreController.$inject = ["$http", "StoreService"];
+    StoreController.$inject = ["$http", "StoreService", "Notification"];
 
-    function StoreController($http, StoreService) {
+    function StoreController($http, StoreService, Notification) {
 
         var vm = this;
         vm.products = [];
@@ -27,6 +27,7 @@
                 .error(function (err) {
                     console.log(err);
                      vm.loading = false;
+                     Notification.error({ message: "Sorry. Products was not available. Try again later.", title: "Error" });
                 });
         }
 
