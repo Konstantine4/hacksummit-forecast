@@ -48,11 +48,11 @@ many different applications. It's also possible to provide users integration mod
 
 http://forecast.io/
 
-"angular"
-"Bootflat"
-"angular-route"
-"weather-icons"
-"SpinKit"
-"angular-ui-notification"
- "angular-google-maps"
- "nodejs"
+* "angular"
+* "Bootflat"
+* "angular-route"
+* "weather-icons"
+* "SpinKit"
+* "angular-ui-notification"
+* "angular-google-maps"
+* "nodejs"
