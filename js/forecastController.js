@@ -5,7 +5,7 @@
         .module("forecastApp")
         .controller("ForecastController", ForecastController);
 
-    ForecastController.$inject = ["$scope","$http", "ForecastService", "Notification"];
+    ForecastController.$inject = ["$scope", "$http", "ForecastService", "Notification"];
 
     function ForecastController($scope, $http, forecastService, Notification) {
         
@@ -23,27 +23,11 @@
         vm.periodInputValue = null;
         vm.locationInputValue = null;
         vm.disableButton = false;
-        vm.map = { center: { latitude: 45, longitude: -73 }, zoom: 8, markers: [] };
-        
-
-        vm.events = {
-            click: function (map, eventName, originalEventArgs) {
-                var e = originalEventArgs[0];
-                var lat = e.latLng.lat(), lon = e.latLng.lng();
-                var marker = {
-                    id: Date.now(),
-                    coords: {
-                        latitude: lat,
-                        longitude: lon
-                    }
-                };
-                vm.map.markers = [];
-                vm.map.markers.push(marker);
-                console.log(vm.map.markers);
-                $scope.$apply();
-            }
-        }
-        
+        // gmaps
+        vm.map = null;
+        vm.events = null;
+        vm.showMap = false;
+                
         // methods
         vm.submitConfiguration = submitConfiguration;
         vm.selectPeriod = selectPeriod;
@@ -66,14 +50,24 @@
             vm.actions = getActions();
             vm.locations = getLocations();
             selectCondition(1);
-            selectPeriod(1);
-            selectLocation(1);
+            initPeriod();
+            // selectPeriod(1);
+            initLocation();
+            // selectLocation(1);
             initAction();
             // selectAction(1);
+            
+            // gmaps
+            vm.map = { center: { latitude: 60.9910, longitude: 24.4681 }, zoom: 8, markers: [] };
+            vm.events = {
+                click: onClick
+            }
         }
 
-        function showInputs(item) {
-            if (isSelected('action', item.id) && hasInputs(item)) {
+
+
+        function showInputs(key, item) {
+            if (isSelected(key, item.id) && hasInputs(item)) {
                 return true;
             }
             return false;
@@ -103,6 +97,17 @@
         function changeConditionMessage(message) {
             vm.conditionMessage = message;
         }
+        
+         function getConditions() {
+            var array = [];
+            array.push({ id: 1, type: "weather", value: "rain", title: "RAIN", message: "IF IT'S GOING TO RAIN", icon: "wi wi-raindrops" });
+            array.push({ id: 2, type: "weather", value: "clear-day", title: "SUNNY", message: "IS THE SUN GOING TO SHINE", icon: "wi wi-day-sunny" });
+            array.push({ id: 3, type: "weather", value: "snow", title: "SNOW", message: "IF IT'S GOING TO SNOW", icon: "wi wi-snow" });
+
+            // clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
+            return array;
+        }
+
 
         // PERIODS
         function selectPeriod(id) {
@@ -113,12 +118,24 @@
         }
 
         function changePeriodMessage(item) {
-            vm.periodMessage = "IN NEXT " + item.value + " " + item.unit;
+            vm.periodMessage = item.message + item.value + " " + item.unit;
         }
 
         function updatePeriodItemValue() {
             vm.selectedConfigs["period"].value = vm.periodInputValue;
             changePeriodMessage(vm.selectedConfigs["period"]);
+        }
+        
+        function initPeriod() {
+            vm.selectedConfigs["period"] = { id: 0, type: "default", title: "", value: "", unit: "", message: "SELECT PERIOD" };
+            changePeriodMessage(vm.selectedConfigs["period"]);
+        }
+        
+          function getPeriods() {
+            var array = [];
+            array.push({ id: 1, type: "hours", unit: "HOURS", value: 1, message: "IN NEXT " });
+
+            return array;
         }
 
         // ACTIONS
@@ -137,11 +154,24 @@
             vm.actionMessage = item.message + " " + item.title;
         }
         
+          
+        function getActions() {
+            var array = [];
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "type callback url" }] });
+            array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope", inputs: [{ type: "emailAddress", value: "", placeholder: "type your email" }] });
+
+            return array;
+        }
+
+        
         // LOCATIONS
         function selectLocation(id) {
             var item = vm.locations.filter(function (x) { return x.id == id })[0];
             vm.selectedConfigs["location"] = item;
-            vm.locationInputValue = item.value;
+            // vm.locationInputValue = item.value;
+            if (vm.showMap != true) {
+                vm.showMap = true;
+            }
             changeLocationMessage(item);
         }
 
@@ -154,6 +184,24 @@
             changeLocationMessage(vm.selectedConfigs["location"]);
         }
 
+        function initLocation() {
+            vm.selectedConfigs["location"] = { id: 0, type: "default", title: "", value: "", message: "SELECT LOCATION" };
+            changeLocationMessage(vm.selectedConfigs["location"]);
+        }
+
+        function setCoordinates(lat, lon) {
+            vm.selectedConfigs["location"].value = lat.toFixed(4) + "," + lon.toFixed(4);
+            changeLocationMessage(vm.selectedConfigs["location"]);
+        }
+        
+          function getLocations() {
+            var array = [];
+            array.push({ id: 1, type: "coordinates", message: "IN", title: "COORDINATES", value: "[lat,long]", icon: "fa fa-map-marker" });
+
+            return array;
+        }
+
+        // Submit configs
         function submitConfiguration() {
             // var data = createConfigurationMessage(vm.selectedConfigs);
             vm.disableButton = true;
@@ -200,9 +248,9 @@
         }
 
         function createErnanirstConfigs(selections) {
-            
-            var coordinates =  vm.map.markers[0].coords;
-            
+
+            var coordinates = vm.map.markers[0].coords;
+
             var config = {
                 userId: "1c9de5bb-f3fe-4930-8602-cc766c32c1b6",
                 config: "forecast",
@@ -220,37 +268,33 @@
             return config;
         }
 
-        function getConditions() {
-            var array = [];
-            array.push({ id: 1, type: "weather", value: "rain", title: "RAIN", message: "IF IT'S GOING TO RAIN", icon: "wi wi-raindrops" });
-            array.push({ id: 2, type: "weather", value: "clear-day", title: "SUNNY", message: "IF IT'S GOING TO SUNNY", icon: "wi wi-day-sunny" });
-            array.push({ id: 3, type: "weather", value: "snow", title: "SNOW", message: "IF IT'S GOING TO SNOW", icon: "wi wi-snow" });
+     
+      
 
-            // clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-            return array;
+      
+        
+        // Google maps configs
+        function onClick(map, eventName, originalEventArgs) {
+            var e = originalEventArgs[0];
+            var lat = e.latLng.lat(), lon = e.latLng.lng();
+            var marker = {
+                id: Date.now(),
+                coords: {
+                    latitude: lat,
+                    longitude: lon
+                }
+            };
+            // clear markers
+            vm.map.markers = [];
+            // push new onw
+            vm.map.markers.push(marker);
+            // change input value
+            setCoordinates(lat, lon);
+            // apply changes
+            $scope.$apply();
         }
 
-        function getActions() {
-            var array = [];
-            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "type callback url" }] });
-            array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope", inputs: [{ type: "emailAddress", value: "", placeholder: "type your email" }] });
 
-            return array;
-        }
-
-        function getPeriods() {
-            var array = [];
-            array.push({ id: 1, type: "hours", unit: "HOURS", value: 1 });
-
-            return array;
-        }
-
-        function getLocations() {
-            var array = [];
-            array.push({ id: 1, type: "city", message: "IN", title: "NAME OF CITY", value: "NAME", icon: "fa fa-building-o" });
-
-            return array;
-        }
 
     }
 })();

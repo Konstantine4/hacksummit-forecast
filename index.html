@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Hacksummit Forecast UI</title>
+    <title>fore.cast() - Hack.summit() hackathon project</title>
     <link rel="stylesheet" href="./bower_components/Bootflat/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bower_components/Bootflat/bootflat/css/bootflat.min.css">
     <link rel="stylesheet" href="./bower_components/weather-icons/css/weather-icons.min.css">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/app.css">
-    
+
     <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -40,12 +40,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Hack.summit() forecast</a>
+                <a class="navbar-brand" href="#">fore.cast()</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ active: header.isActive('/home')}"><a href="#/home">Forecast Beep</a></li>
-                    <li ng-class="{ active: header.isActive('/store')}"><a href="#/store">Store</a></li>
+                    <li ng-class="{ active: header.isActive('/faq')}"><a href="#/faq">Home</a></li>
+                    <li ng-class="{ active: header.isActive('/home')}"><a href="#/home">Create config</a></li>
+                    <li ng-class="{ active: header.isActive('/store')}"><a href="#/store">Demo store</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -59,8 +60,9 @@
     <div class="footer">
         <div class="container">
             <div class="clearfix">
-
-                <div class="footer-copyright text-center">Hack.summit() 2016 - Team Polar Bear</div>
+                <div class="footer-copyright text-center">Hack.summit() 2016 - Team Polar Bear
+                    <p>Demo application for Hack.summit() virtual hackathon.</p>
+                </div>
             </div>
         </div>
         <!-- /.footer -->

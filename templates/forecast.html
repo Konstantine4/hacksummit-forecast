@@ -17,22 +17,18 @@
         <div class="row row-centered">
             <div ng-repeat="item in vm.locations" class="col-xs-12 col-sm-12 col-md-2 col-centered" ng-click="vm.selectLocation(item.id)">
                 <div class="thumbnail" ng-class="{ activeCondition: vm.isSelected('location', item.id)}">
-                    <div class="form-group form-group-lg">
-                        <div class="col-lg-12">
-                            <input ng-model="vm.locationInputValue" ng-change="vm.updateLocationItemValue()" class="form-control input-lg text-center"
-                            type="text" placeholder="{{item.value}}">
-                        </div>
-                    </div>
+                    <i class="{{item.icon}}"></i>
                     <div class="caption">
                         <h3>{{item.title}}</h3>
                     </div>
                 </div>
             </div>
+            <ui-gmap-google-map ng-if="vm.showMap" center='vm.map.center' zoom='vm.map.zoom' events="vm.events">
+                <ui-gmap-marker ng-repeat="m in vm.map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>
+            </ui-gmap-google-map>
         </div>
-        
-        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' events="vm.events">
-            <ui-gmap-marker ng-repeat="m in vm.map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>
-        </ui-gmap-google-map>
+
+
 
         <h1>{{vm.periodMessage}}</h1>
         <div class="row row-centered">
@@ -61,7 +57,7 @@
 
                     </div>
                 </div>
-                <div ng-show="vm.showInputs(item)" class="form-group form-group-lg">
+                <div ng-show="vm.showInputs('action', item)" class="form-group form-group-lg">
                     <div ng-repeat="input in item.inputs" class="col-lg-12">
                         <input ng-model="input.value" class="form-control input-lg text-center" type="text" placeholder="{{input.placeholder}}">
                     </div>
@@ -70,7 +66,9 @@
         </div>
         <div class="row center-block text-center">
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary btn-block" ng-click="vm.submitConfiguration()" ng-disabled="vm.disableButton">Submit</button>
+                <div class="form-group form-group-lg">
+                    <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="vm.submitConfiguration()" ng-disabled="vm.disableButton">Submit</button>
+                </div>
             </div>
         </div>
 

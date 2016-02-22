@@ -8,6 +8,9 @@
         'uiGmapgoogle-maps'
     ]).config(['$routeProvider', 'NotificationProvider', function ($routeProvider, NotificationProvider) {
         $routeProvider
+            .when('/faq', {
+                templateUrl: './templates/faq.html'
+            })
             .when('/home', {
                 templateUrl: './templates/forecast.html',
                 controller: 'ForecastController as vm'
@@ -17,7 +20,7 @@
                 controller: 'StoreController as vm'
             })
             .otherwise({
-                redirectTo: '/home'
+                redirectTo: '/faq'
             });
 
         NotificationProvider.setOptions({
