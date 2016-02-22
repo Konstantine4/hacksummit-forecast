@@ -43,3 +43,16 @@ so that I can offer cheaper tickets for attendees.
 
 Our weather forecast data is powered by forecast.io's API and it's only one input. Using the proper APIs it's possible to access endless kind of data and power
 many different applications. It's also possible to provide users integration modules so they can connect their data to the notification system.
+
+## list of frameworks and apis
+
+http://forecast.io/
+
+"angular"
+"Bootflat"
+"angular-route"
+"weather-icons"
+"SpinKit"
+"angular-ui-notification"
+ "angular-google-maps"
+ "nodejs"
