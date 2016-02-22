@@ -157,7 +157,7 @@
           
         function getActions() {
             var array = [];
-            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "type callback url" }] });
+            array.push({ id: 1, type: "webhook", title: "WEBHOOK", message: "NOTIFY ME BY", icon: "fa fa-cloud", inputs: [{ type: "callbackUrl", value: "", placeholder: "http://requestb.in/1cxlztd1" }] });
             array.push({ id: 2, type: "email", title: "EMAIL", message: "NOTIFY ME BY", icon: "fa fa-envelope", inputs: [{ type: "emailAddress", value: "", placeholder: "type your email" }] });
 
             return array;
@@ -211,7 +211,7 @@
                 .submitConfigs(data)
                 .success(function (response) {
                     // Success
-                    Notification.success({ message: "Thank you! We will notify you when something happens.", title: "Success" });
+                    Notification.success({ message: "Thank you! We will notify you when something happens. (CHECK DEMO STORE PAGE)", title: "Success" });
                 })
                 .error(function (err) {
                     // Error
