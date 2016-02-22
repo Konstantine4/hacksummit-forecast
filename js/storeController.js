@@ -35,6 +35,7 @@
             LoggerService.getLog()
                 .success(function (response) {
                     console.log(response);
+                    vm.logs = response;
                 })
                 .error(function (err) {
                     console.log(err);

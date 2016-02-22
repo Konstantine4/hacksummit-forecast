@@ -9,7 +9,7 @@
 
     function LoggerService($http) {
 
-        var baseUrl = 'http://169.45.221.144';
+        var baseUrl = 'http://169.45.221.144:3000';
 
         var service = {
             getLog: getLog
@@ -17,7 +17,7 @@
         return service;
 
         function getLog() {
-            var url = baseUrl + "/private/server/log.txt";
+            var url = baseUrl + "/getLog";
             return $http.get(url);
         };
     }
