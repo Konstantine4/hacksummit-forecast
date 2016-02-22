@@ -8,10 +8,9 @@
         <div class="sk-cube3 sk-cube"></div>
     </div>
 
-    <div class="row">
+    <div ng-hide="vm.loading" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-
                 <div ng-repeat="product in vm.products" class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
                         <img ng-src="{{product.picture}}" alt="{{product.title}}">
@@ -29,11 +28,22 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
+    </div>
+    
+    <div ng-hide="vm.loading" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5>Logs</h5>
+            <ul class="list-group">
+              <li class="list-group-item">1423625623: something happened....</li>
+              <li class="list-group-item">1423625623: something happened....</li>
+              <li class="list-group-item">1423625623: something happened....</li>
+              <li class="list-group-item">1423625623: something happened....</li>
+              <li class="list-group-item">1423625623: something happened....</li>
+              <li class="list-group-item">1423625623: something happened....</li>
+            </ul>
+        </div>
     </div>
 
 </div>

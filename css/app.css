@@ -32,6 +32,11 @@
     color: #f5f5f5;
 }
 
+/* bootflat colors */
+.btn-success {
+    background-color: #87D37C;
+}
+
 /* google map */
 .angular-google-map-container { height: 400px; }
 

@@ -27,7 +27,7 @@
                 .error(function (err) {
                     console.log(err);
                      vm.loading = false;
-                     Notification.error({ message: "Sorry. Products was not available. Try again later.", title: "Error" });
+                     Notification.error({ message: "Sorry. Products are not available. Try again later.", title: "Error" });
                 });
         }
 
