@@ -1,0 +1,41 @@
+Demo Store Log
+4-11-44: New configuration in the store 
+4-12-39: Updated demo store configuration 
+4-14-10: Updated demo store configuration 
+4-14-33: Decreasing prices 
+4-22-56: Prices back to normal 
+4-22-56: Prices back to normal 
+4-22-56: Prices back to normal 
+4-23-26: Prices back to normal 
+4-23-26: Prices back to normal 
+4-23-26: Prices back to normal 
+4-23-59: Prices back to normal 
+4-23-59: Prices back to normal 
+4-23-59: Prices back to normal 
+4-25-5: Prices back to normal 
+4-25-5: Prices back to normal 
+4-25-5: Prices back to normal 
+4-25-21: Decreasing prices 
+4-26-26: Prices back to normal 
+4-26-26: Prices back to normal 
+4-31-58: Prices back to normal 
+4-31-58: Prices back to normal 
+4-31-58: Prices back to normal 
+4-35-2: Prices back to normal 
+4-35-2: Prices back to normal 
+4-35-2: Prices back to normal 
+4-37-23: Prices back to normal 
+4-37-23: Prices back to normal 
+4-37-23: Prices back to normal 
+4-37-52: Prices back to normal 
+4-37-52: Prices back to normal 
+4-37-52: Prices back to normal 
+4-39-2: Prices back to normal 
+4-39-2: Prices back to normal 
+4-39-2: Prices back to normal 
+4-40-13: Prices back to normal 
+4-40-13: Prices back to normal 
+4-40-13: Prices back to normal 
+4-40-25: Prices back to normal 
+4-40-25: Prices back to normal 
+4-40-25: Prices back to normal 
